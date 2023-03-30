@@ -9,10 +9,20 @@ exports.create = (req, res) => {
         });
     }
 
+    // Validate topic
+    if( req.body.topic != "business" &&
+        req.body.topic != "family" &&
+        req.body.topic != "entertainment") {
+        return res.status(400).send({
+            message: "No topic can't be empty and must be one of this: business, family, entertainment."
+        });
+    }
+
     // Create a Note
     const note = new Note({
         title: req.body.title || "Untitled Note", 
-        content: req.body.content
+        content: req.body.content,
+        topic: req.body.topic
     });
 
     // Save Note in the database

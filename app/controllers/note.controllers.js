@@ -9,10 +9,20 @@ exports.create = (req, res) => {
         });
     }
 
+    // Topic validation
+    if(req.body.topic != "Business"
+    && req.body.topic != "Family"
+    && req.body.topic != "Entertainment") {
+        return res.status(400).send({
+            message: "Topic not permitted"
+        });
+    }
+
     // Create a Note
     const note = new Note({
         title: req.body.title || "Untitled Note", 
-        content: req.body.content
+        content: req.body.content,
+        topic: req.body.topic
     });
 
     // Save Note in the database
